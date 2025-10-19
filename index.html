@@ -12,8 +12,9 @@
             --bg-dark-1: #141414;
             --bg-dark-2: #1C1C1C;
             --bg-dark-3: #1F1F1F;
-            --accent-primary: #ff0000; /* rouge principal */
-            --accent-secondary: #b30000; /* rouge foncé */
+            --accent-primary: #ff0000;
+            --accent-glow: #ff2020;
+            --accent-secondary: #b30000;
             --text-light: #E0E0E0;
             --text-dark: #FFFFFF;
             --shadow-dark: rgba(0, 0, 0, 0.5);
@@ -28,7 +29,6 @@
         body {
             font-family: "Tomorrow", sans-serif;
             font-weight: 600;
-            font-style: normal;
             background: linear-gradient(85deg, var(--bg-dark-3), var(--bg-dark-1), var(--bg-dark-2));
             background-size: 250% 250%;
             animation: gradientBackground 20s linear infinite;
@@ -47,22 +47,21 @@
             width: 100%;
             background-color: rgba(28, 28, 28, 0.3);
             border-radius: 10px;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.15);
         }
 
         h1 {
             font-family: "Tomorrow", sans-serif;
             font-weight: 700;
-            position: relative;
             display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
             color: var(--accent-primary);
             font-size: clamp(2rem, 6vw, 3rem);
             border-right: 0.15em solid var(--accent-primary);
             animation: typing 3s steps(40, end) forwards,
-                       blink-caret 0.75s step-end infinite;
+                       blink-caret 0.75s step-end infinite,
+                       neonPulse 2.5s ease-in-out infinite;
+            text-shadow: 0 0 15px var(--accent-glow), 0 0 25px var(--accent-primary);
             margin: 0 auto 30px auto;
-            text-shadow: 0 0 10px #ff0000;
         }
 
         @keyframes typing {
@@ -75,10 +74,17 @@
             50% { border-color: var(--accent-primary); }
         }
 
-        h1.typing-complete {
-            border-right-color: transparent;
-            animation: none;
-            text-shadow: 0 0 10px #ff0000;
+        @keyframes neonPulse {
+            0%, 100% {
+                text-shadow: 0 0 10px var(--accent-glow),
+                             0 0 20px var(--accent-primary),
+                             0 0 40px var(--accent-primary);
+            }
+            50% {
+                text-shadow: 0 0 20px var(--accent-glow),
+                             0 0 40px var(--accent-glow),
+                             0 0 60px var(--accent-primary);
+            }
         }
 
         .category-header {
@@ -95,27 +101,16 @@
             height: 40px;
             margin-right: 15px;
             object-fit: contain;
-            filter: drop-shadow(0 0 8px #ff0000);
+            filter: drop-shadow(0 0 10px var(--accent-primary));
+            animation: neonPulse 3s ease-in-out infinite;
         }
 
         h2 {
             font-size: clamp(1.5rem, 5vw, 2rem);
             font-weight: 700;
             color: var(--accent-secondary);
-            text-shadow: 0 0 8px #ff0000;
-        }
-
-        p {
-            margin-bottom: 30px;
-            font-size: clamp(1rem, 3vw, 1.1rem);
-            line-height: 1.6;
-            opacity: 0.85;
-            text-shadow: 1px 1px 2px var(--shadow-dark);
-            animation: fadeInUp 1.2s ease-out 0.7s backwards;
-        }
-
-        .category {
-            margin-bottom: 50px;
+            text-shadow: 0 0 8px var(--accent-glow);
+            animation: neonPulse 3s ease-in-out infinite;
         }
 
         .button-container {
@@ -125,29 +120,6 @@
             animation: fadeInUp 1.2s ease-out 0.9s backwards;
         }
 
-        .button-container p.click-me {
-            grid-column: 1 / -1;
-            margin-top: 10px;
-            margin-bottom: 0;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            animation: none;
-            font-weight: 400;
-        }
-
-        .button-container p.click-me a {
-            color: var(--accent-primary);
-            text-decoration: none;
-            font-weight: 600;
-            margin-left: 5px;
-            transition: color 0.3s ease, text-shadow 0.3s ease;
-        }
-
-        .button-container p.click-me a:hover {
-            color: var(--text-dark);
-            text-shadow: 0 0 5px #ff0000;
-        }
-
         .button {
             position: relative;
             overflow: hidden;
@@ -155,19 +127,16 @@
             padding: 14px 25px;
             font-size: 1rem;
             font-weight: 600;
-            border: 2px solid var(--accent-secondary);
+            border: 2px solid var(--accent-primary);
             color: var(--text-light);
             background-color: transparent;
             text-decoration: none;
             border-radius: 8px;
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
-                        box-shadow 0.3s ease-out,
-                        background-color 0.3s ease-out,
-                        border-color 0.3s ease-out,
-                        color 0.3s ease-out;
-            box-shadow: 0 0 8px #ff0000;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--accent-primary);
             text-align: center;
             cursor: pointer;
+            animation: neonPulse 3s ease-in-out infinite;
         }
 
         .button::after {
@@ -177,7 +146,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
             transition: left 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
@@ -185,60 +154,28 @@
             left: 150%;
         }
 
-        .button:hover,
-        .button:focus {
+        .button:hover {
             background-color: var(--accent-primary);
-            color: var(--bg-dark-1);
+            color: #000;
             border-color: var(--accent-primary);
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0px 6px 20px #ff0000;
-            outline: none;
-        }
-
-        .button:active {
-             transform: translateY(-1px) scale(1.01);
-             box-shadow: 0px 3px 15px #ff0000;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 25px var(--accent-glow), 0 0 50px var(--accent-primary);
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes gradientBackground {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
-
-        @media (max-width: 600px) {
-            body { padding: 30px 15px; }
-            .container { padding: 15px; }
-            .button-container {
-                 grid-template-columns: 1fr;
-                 gap: 15px;
-            }
-            h1 { margin-bottom: 20px; }
-            .category-header { margin-top: 30px; margin-bottom: 20px; }
-            .category-logo { width: 30px; height: 30px; margin-right: 10px; }
-            .button { padding: 12px 20px; font-size: 0.95rem;}
         }
     </style>
 </head>
@@ -249,11 +186,11 @@
         <div class="category">
             <div class="category-header">
                 <img src="https://cdn.discordapp.com/attachments/1181336013369511936/1422549337770033254/bo6_ml_icon_v1.png" alt="MW3/BO6 Logo" class="category-logo">
-                <h2>BO6/WZ</h2>
+                <h2>BO6 / WZ</h2>
             </div>
             <div class="button-container">
                 <a href="https://gofile.io/d/vmVgCK" class="button">UCLD-External</a>
-                <a href="https://gofile.io/d/QJusne" class="button">UCLD UNLOCK ALL</a>
+                <a href="https://gofile.io/d/QJusne" class="button">UCLD Unlock All</a>
             </div>
         </div>
     </div>
@@ -263,7 +200,7 @@
             const title = document.getElementById('title');
             const titleAnimationDuration = 3000;
 
-            const timer = setTimeout(() => {
+            setTimeout(() => {
                 if (title) {
                     title.classList.add('typing-complete');
                 }
