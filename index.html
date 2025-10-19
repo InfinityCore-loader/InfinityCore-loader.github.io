@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InfinityCore-loader</title>
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/1181336013369511936/1422933133321310208/PFP.png?ex=68de793f&is=68dd27bf&hm=b59b0b67db27933610092198fc934fa284e3004e104828ed9d10204019e9b81f&" type="image/png">
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1181336013369511936/1422933133321310208/PFP.png" type="image/png">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Tomorrow:wght@400;600;700&display=swap');
 
         :root {
             --bg-dark-1: #141414;
             --bg-dark-2: #1C1C1C;
             --bg-dark-3: #1F1F1F;
-            --accent-primary: #8300FF; /* violet principal */
-            --accent-secondary: #8e44ad;
+            --accent-primary: #ff0000; /* rouge principal */
+            --accent-secondary: #b30000; /* rouge foncé */
             --text-light: #E0E0E0;
             --text-dark: #FFFFFF;
             --shadow-dark: rgba(0, 0, 0, 0.5);
@@ -62,7 +62,7 @@
             animation: typing 3s steps(40, end) forwards,
                        blink-caret 0.75s step-end infinite;
             margin: 0 auto 30px auto;
-            text-shadow: 0 0 10px #8300FF;
+            text-shadow: 0 0 10px #ff0000;
         }
 
         @keyframes typing {
@@ -78,7 +78,7 @@
         h1.typing-complete {
             border-right-color: transparent;
             animation: none;
-            text-shadow: 0 0 10px #8300FF;
+            text-shadow: 0 0 10px #ff0000;
         }
 
         .category-header {
@@ -95,14 +95,14 @@
             height: 40px;
             margin-right: 15px;
             object-fit: contain;
-            filter: drop-shadow(0 0 8px #8300FF);
+            filter: drop-shadow(0 0 8px #ff0000);
         }
 
         h2 {
             font-size: clamp(1.5rem, 5vw, 2rem);
             font-weight: 700;
             color: var(--accent-secondary);
-            text-shadow: 0 0 8px #8300FF;
+            text-shadow: 0 0 8px #ff0000;
         }
 
         p {
@@ -145,7 +145,7 @@
 
         .button-container p.click-me a:hover {
             color: var(--text-dark);
-            text-shadow: 0 0 5px #8300FF;
+            text-shadow: 0 0 5px #ff0000;
         }
 
         .button {
@@ -165,7 +165,7 @@
                         background-color 0.3s ease-out,
                         border-color 0.3s ease-out,
                         color 0.3s ease-out;
-            box-shadow: 0 0 8px #8300FF;
+            box-shadow: 0 0 8px #ff0000;
             text-align: center;
             cursor: pointer;
         }
@@ -177,7 +177,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, #8300FF, transparent);
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
             transition: left 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
@@ -191,13 +191,13 @@
             color: var(--bg-dark-1);
             border-color: var(--accent-primary);
             transform: translateY(-3px) scale(1.03);
-            box-shadow: 0px 6px 20px #8300FF;
+            box-shadow: 0px 6px 20px #ff0000;
             outline: none;
         }
 
         .button:active {
              transform: translateY(-1px) scale(1.01);
-             box-shadow: 0px 3px 15px #8300FF;
+             box-shadow: 0px 3px 15px #ff0000;
         }
 
         @keyframes fadeInDown {
@@ -240,7 +240,6 @@
             .category-logo { width: 30px; height: 30px; margin-right: 10px; }
             .button { padding: 12px 20px; font-size: 0.95rem;}
         }
-
     </style>
 </head>
 <body>
@@ -249,7 +248,7 @@
 
         <div class="category">
             <div class="category-header">
-                <img src="https://cdn.discordapp.com/attachments/1181336013369511936/1422549337770033254/bo6_ml_icon_v1.png?ex=68de654f&is=68dd13cf&hm=839c7d6558bf1497e0af9e3ed4966f9c2b1e37ecc80f9605670d600f4f539918&" alt="MW3/BO6 Logo" class="category-logo">
+                <img src="https://cdn.discordapp.com/attachments/1181336013369511936/1422549337770033254/bo6_ml_icon_v1.png" alt="MW3/BO6 Logo" class="category-logo">
                 <h2>BO6/WZ</h2>
             </div>
             <div class="button-container">
@@ -257,6 +256,7 @@
                 <a href="https://gofile.io/d/QJusne" class="button">UCLD UNLOCK ALL</a>
             </div>
         </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
