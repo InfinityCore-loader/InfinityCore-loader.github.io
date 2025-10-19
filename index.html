@@ -50,6 +50,7 @@
       position: relative;
     }
 
+    /* Bouton son */
     .sound-toggle {
       position: absolute;
       top: 15px;
@@ -63,31 +64,78 @@
       font-size: 0.85rem;
       transition: all 0.3s ease;
     }
-    .sound-toggle:hover { background: var(--accent-soft); color: #000; }
+    .sound-toggle:hover {
+      background: var(--accent-soft);
+      color: #000;
+    }
 
     h1 {
       color: #ffffff;
       -webkit-text-stroke: 0.6px #3a0000;
-      text-shadow: 0 0 2px var(--accent-soft), 0 0 6px var(--accent-primary);
+      text-shadow:
+        0 0 2px var(--accent-soft),
+        0 0 6px var(--accent-primary);
       font-weight: 700;
       display: inline-block;
       font-size: clamp(2rem, 6vw, 3rem);
       border-right: 0.15em solid var(--accent-primary);
-      white-space: nowrap; overflow: hidden;
-      animation: typing 3s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
+      white-space: nowrap;
+      overflow: hidden;
+      animation:
+        typing 3s steps(40, end) forwards,
+        blink-caret 0.75s step-end infinite;
       margin: 0 auto 30px auto;
     }
-    h1.typing-complete { border-right-color: transparent; animation: none; text-shadow: 0 0 4px var(--accent-soft), 0 0 10px var(--accent-primary), 0 0 18px var(--accent-secondary); }
-    h1.flicker { animation: flicker 0.75s linear 1; }
+
+    h1.typing-complete {
+      border-right-color: transparent;
+      animation: none;
+      text-shadow:
+        0 0 4px var(--accent-soft),
+        0 0 10px var(--accent-primary),
+        0 0 18px var(--accent-secondary);
+    }
+
+    h1.flicker {
+      animation: flicker 0.75s linear 1;
+    }
 
     @keyframes typing { from { width: 0; } to { width: 100%; } }
     @keyframes blink-caret { 0%,100%{border-color:transparent;} 50%{border-color:var(--accent-primary);} }
-    @keyframes flicker { 0%{opacity:1}10%{opacity:.8}20%{opacity:.4}30%{opacity:.9}40%{opacity:.3}50%{opacity:1}60%{opacity:.6}70%{opacity:1}80%{opacity:.7}100%{opacity:1} }
 
-    .category-header { display: flex; align-items: center; justify-content: center; margin-top: 40px; margin-bottom: 25px; opacity: 0; transform: translateY(12px); }
+    @keyframes flicker {
+      0% { opacity: 1; }
+      10% { opacity: 0.8; }
+      20% { opacity: 0.4; }
+      30% { opacity: 0.9; }
+      40% { opacity: 0.3; }
+      50% { opacity: 1; }
+      60% { opacity: 0.6; }
+      70% { opacity: 1; }
+      80% { opacity: 0.7; }
+      90% { opacity: 1; }
+      100% { opacity: 1; }
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 40px;
+      margin-bottom: 25px;
+      opacity: 0;
+      transform: translateY(12px);
+    }
     .category-header.show { animation: rise 600ms ease-out forwards; }
 
-    .category-logo { width: 40px; height: 40px; margin-right: 15px; object-fit: contain; filter: drop-shadow(0 0 6px rgba(255,0,0,0.6)) drop-shadow(0 0 14px rgba(179,0,0,0.5)); }
+    .category-logo {
+      width: 40px;
+      height: 40px;
+      margin-right: 15px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 6px rgba(255,0,0,0.6))
+              drop-shadow(0 0 14px rgba(179,0,0,0.5));
+    }
 
     h2 {
       font-size: clamp(1.5rem, 5vw, 2rem);
@@ -99,28 +147,65 @@
 
     .category { margin-bottom: 50px; }
 
-    .button-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 10px; }
+    .button-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 10px;
+    }
 
     .button {
-      position: relative; overflow: hidden; display: inline-block;
-      padding: 14px 25px; font-size: 1rem; font-weight: 600;
-      background-color: #171717; border: 2px solid var(--accent-soft); color: #eaeaea;
-      text-decoration: none; border-radius: 8px; transition: all 0.3s ease;
-      box-shadow: 0 0 6px rgba(255,0,0,0.45); text-shadow: 0 0 2px rgba(255,0,0,0.6);
-      text-align: center; cursor: pointer; opacity: 0; transform: translateY(12px); filter: blur(2px);
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      padding: 14px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      background-color: #171717;
+      border: 2px solid var(--accent-soft);
+      color: #eaeaea;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 6px rgba(255,0,0,0.45);
+      text-shadow: 0 0 2px rgba(255,0,0,0.6);
+      text-align: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(12px);
+      filter: blur(2px);
     }
     .button.show { animation: rise 520ms ease-out forwards; }
 
     .button::after {
-      content: ''; position: absolute; left: -150%; top: 0; width: 100%; height: 100%;
+      content: '';
+      position: absolute;
+      left: -150%;
+      top: 0;
+      width: 100%;
+      height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,0,0,0.6), transparent);
       transition: left 0.7s cubic-bezier(0.25,0.8,0.25,1);
     }
     .button:hover::after { left: 150%; }
-    .button:hover { background-color: #ff1a1a; color: #111; border-color: #ff1a1a; transform: translateY(-3px) scale(1.05); box-shadow: 0 0 10px rgba(255,26,26,0.55), 0 0 20px rgba(179,0,0,0.45); }
 
-    @keyframes rise { 0%{opacity:0; transform:translateY(12px); filter:blur(3px);} 100%{opacity:1; transform:translateY(0); filter:blur(0);} }
-    @keyframes gradientBackground { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+    .button:hover {
+      background-color: #ff1a1a;
+      color: #111;
+      border-color: #ff1a1a;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 0 10px rgba(255,26,26,0.55), 0 0 20px rgba(179,0,0,0.45);
+    }
+
+    @keyframes rise {
+      0% { opacity:0; transform:translateY(12px); filter:blur(3px); }
+      100% { opacity:1; transform:translateY(0); filter:blur(0); }
+    }
+    @keyframes gradientBackground {
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
+    }
   </style>
 </head>
 <body>
@@ -133,24 +218,15 @@
         <img src="https://cdn.discordapp.com/attachments/1181336013369511936/1422549337770033254/bo6_ml_icon_v1.png" alt="MW3/BO6 Logo" class="category-logo">
         <h2>BO6 / WZ</h2>
       </div>
-
       <div class="button-container">
-        <!-- data-href = URL à ouvrir après le clic -->
-        <a data-href="https://gofile.io/d/vmVgCK" class="button" target="_blank" rel="noopener">UCLD-External</a>
-        <a data-href="https://gofile.io/d/QJusne" class="button" target="_blank" rel="noopener">UCLD Unlock All</a>
+        <a href="https://gofile.io/d/vmVgCK" class="button">UCLD-External</a>
+        <a href="https://gofile.io/d/QJusne" class="button">UCLD Unlock All</a>
       </div>
     </div>
   </div>
 
-  <!-- Son de clic intégré (WAV très court en base64) -->
-  <audio id="clickSound" preload="auto">
-    <source
-      src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABYAAAACAAACaW5mbyBjbGljayB2ZXJ5IHNob3J0AAAA"
-      type="audio/wav">
-  </audio>
-
   <script>
-    // Apparition + glow titre
+    // --- Apparition + glow titre ---
     document.addEventListener('DOMContentLoaded', () => {
       const title = document.getElementById('title');
       const header = document.getElementById('catHeader');
@@ -162,54 +238,64 @@
       buttons.forEach((btn, i) => setTimeout(() => btn.classList.add('show'), 800 + i * 140));
     });
 
-    // Toggle du son
-    const toggleBtn = document.getElementById("soundToggle");
-    const clickSound = document.getElementById("clickSound");
-    clickSound.volume = 0.6; // plus audible
+    // --- Audio setup ---
+    let audioCtx = null;
     let soundEnabled = true;
+
+    const toggleBtn = document.getElementById("soundToggle");
     toggleBtn.addEventListener("click", () => {
       soundEnabled = !soundEnabled;
       toggleBtn.textContent = soundEnabled ? "🔊 Sound ON" : "🔇 Sound OFF";
     });
 
-    // Débloquer la lecture audio au premier geste utilisateur (mobile/iOS)
+    function ensureAudioUnlocked() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+      } catch {}
+    }
+
     ['pointerdown','touchstart','keydown'].forEach(ev => {
       window.addEventListener(ev, function unlockOnce() {
-        clickSound.play().then(() => { clickSound.pause(); clickSound.currentTime = 0; }).catch(()=>{});
+        ensureAudioUnlocked();
         ['pointerdown','touchstart','keydown'].forEach(e2 => window.removeEventListener(e2, unlockOnce));
-      }, { once: true });
-    });
-
-    // Intercepter le clic : jouer le son PUIS ouvrir le lien
-    document.querySelectorAll('.button').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const url = btn.getAttribute('data-href');
-        if (!url) return;
-
-        const openAfter = () => {
-          // ouvre dans un nouvel onglet pour ne pas couper le son
-          window.open(url, '_blank', 'noopener');
-        };
-
-        if (soundEnabled) {
-          // jouer le son et ouvrir après un mini délai
-          clickSound.currentTime = 0;
-          const playPromise = clickSound.play();
-          if (playPromise && typeof playPromise.then === 'function') {
-            playPromise.then(() => {
-              setTimeout(openAfter, 120); // laisse le temps au "clic" de se jouer
-            }).catch(() => openAfter());
-          } else {
-            setTimeout(openAfter, 120);
-          }
-        } else {
-          openAfter();
-        }
       });
     });
 
-    // Scintillement périodique du titre
+    function playBeep({ freq=880, type='triangle', gainPeak=0.18, duration=0.1 }={}) {
+      if (!soundEnabled) return;
+      try {
+        ensureAudioUnlocked();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(gainPeak, now + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + duration);
+      } catch {}
+    }
+
+    const buttons = document.querySelectorAll('.button');
+    let last = 0;
+    const THROTTLE_MS = 90;
+    buttons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        const now = performance.now();
+        if (now - last > THROTTLE_MS) {
+          playBeep({ freq: 1100, type: 'triangle', gainPeak: 0.16, duration: 0.07 });
+          last = now;
+        }
+      });
+      btn.addEventListener('click', () => playBeep({ freq: 520, type: 'square', gainPeak: 0.22, duration: 0.11 }));
+    });
+
+    // --- Scintillement du titre ---
     (function flickerLoop() {
       const title = document.getElementById('title');
       if (!title) return;
