@@ -12,9 +12,9 @@
       --bg-dark-1: #0f0f0f;
       --bg-dark-2: #151515;
       --bg-dark-3: #181818;
-      --accent-primary: #ff0000;     /* rouge principal */
-      --accent-soft: #ff2a2a;        /* rouge doux pour glow */
-      --accent-secondary: #b30000;   /* rouge foncé */
+      --accent-primary: #ff0000;
+      --accent-soft: #ff2a2a;
+      --accent-secondary: #b30000;
       --text-light: #eaeaea;
       --text-dark: #ffffff;
       --shadow-dark: rgba(0,0,0,0.5);
@@ -47,9 +47,28 @@
       opacity: 0;
       transform: translateY(10px);
       animation: rise 600ms ease-out forwards 150ms;
+      position: relative;
     }
 
-    /* TITRE lisible + glow propre */
+    /* Bouton son */
+    .sound-toggle {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255,0,0,0.15);
+      border: 1px solid var(--accent-soft);
+      color: var(--text-light);
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+    .sound-toggle:hover {
+      background: var(--accent-soft);
+      color: #000;
+    }
+
     h1 {
       color: #ffffff;
       -webkit-text-stroke: 0.6px #3a0000;
@@ -68,7 +87,6 @@
       margin: 0 auto 30px auto;
     }
 
-    /* Classe appliquée après la saisie + quand on déclenche le scintillement */
     h1.typing-complete {
       border-right-color: transparent;
       animation: none;
@@ -78,7 +96,6 @@
         0 0 18px var(--accent-secondary);
     }
 
-    /* Scintillement façon néon (appliqué ponctuellement via JS) */
     h1.flicker {
       animation: flicker 0.75s linear 1;
     }
@@ -87,17 +104,17 @@
     @keyframes blink-caret { 0%,100%{border-color:transparent;} 50%{border-color:var(--accent-primary);} }
 
     @keyframes flicker {
-      0%   { opacity: 1; text-shadow: 0 0 4px var(--accent-soft), 0 0 10px var(--accent-primary), 0 0 18px var(--accent-secondary); }
-      10%  { opacity: 0.8; }
-      20%  { opacity: 0.4; }
-      30%  { opacity: 0.9; }
-      40%  { opacity: 0.3; }
-      50%  { opacity: 1;   }
-      60%  { opacity: 0.6; }
-      70%  { opacity: 1;   }
-      80%  { opacity: 0.7; }
-      90%  { opacity: 1;   }
-      100% { opacity: 1;   }
+      0% { opacity: 1; }
+      10% { opacity: 0.8; }
+      20% { opacity: 0.4; }
+      30% { opacity: 0.9; }
+      40% { opacity: 0.3; }
+      50% { opacity: 1; }
+      60% { opacity: 0.6; }
+      70% { opacity: 1; }
+      80% { opacity: 0.7; }
+      90% { opacity: 1; }
+      100% { opacity: 1; }
     }
 
     .category-header {
@@ -137,7 +154,6 @@
       margin-top: 10px;
     }
 
-    /* Boutons : apparition progressive (stagger) */
     .button {
       position: relative;
       overflow: hidden;
@@ -155,7 +171,6 @@
       text-shadow: 0 0 2px rgba(255,0,0,0.6);
       text-align: center;
       cursor: pointer;
-
       opacity: 0;
       transform: translateY(12px);
       filter: blur(2px);
@@ -170,7 +185,7 @@
       width: 100%;
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(255,0,0,0.6), transparent);
-      transition: left 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transition: left 0.7s cubic-bezier(0.25,0.8,0.25,1);
     }
     .button:hover::after { left: 150%; }
 
@@ -182,30 +197,20 @@
       box-shadow: 0 0 10px rgba(255,26,26,0.55), 0 0 20px rgba(179,0,0,0.45);
     }
 
-    /* Animations utilitaires */
     @keyframes rise {
-      0%   { opacity: 0; transform: translateY(12px); filter: blur(3px); }
-      100% { opacity: 1; transform: translateY(0);    filter: blur(0);   }
+      0% { opacity:0; transform:translateY(12px); filter:blur(3px); }
+      100% { opacity:1; transform:translateY(0); filter:blur(0); }
     }
     @keyframes gradientBackground {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @media (max-width: 600px) {
-      body { padding: 30px 15px; }
-      .container { padding: 15px; }
-      .button-container { grid-template-columns: 1fr; gap: 15px; }
-      h1 { margin-bottom: 20px; }
-      .category-header { margin-top: 30px; margin-bottom: 20px; }
-      .category-logo { width: 30px; height: 30px; margin-right: 10px; }
-      .button { padding: 12px 20px; font-size: 0.95rem; }
+      0%{background-position:0% 50%;}
+      50%{background-position:100% 50%;}
+      100%{background-position:0% 50%;}
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <button id="soundToggle" class="sound-toggle">🔊 Sound ON</button>
     <h1 id="title">InfinityCore-loader</h1>
 
     <div class="category">
@@ -213,7 +218,6 @@
         <img src="https://cdn.discordapp.com/attachments/1181336013369511936/1422549337770033254/bo6_ml_icon_v1.png" alt="MW3/BO6 Logo" class="category-logo">
         <h2>BO6 / WZ</h2>
       </div>
-
       <div class="button-container">
         <a href="https://gofile.io/d/vmVgCK" class="button">UCLD-External</a>
         <a href="https://gofile.io/d/QJusne" class="button">UCLD Unlock All</a>
@@ -222,77 +226,86 @@
   </div>
 
   <script>
-    // ---------- Effet "apparition" séquencée + glow titre ----------
+    // --- Apparition + glow titre ---
     document.addEventListener('DOMContentLoaded', () => {
       const title = document.getElementById('title');
       const header = document.getElementById('catHeader');
       const buttons = document.querySelectorAll('.button');
-
-      // Fin de l'effet "typing" puis transition du glow
       const titleAnimationDuration = 3000;
-      setTimeout(() => { title.classList.add('typing-complete'); }, titleAnimationDuration + 200);
 
-      // Apparition du header (logo + h2)
-      setTimeout(() => { header.classList.add('show'); }, 600);
+      setTimeout(() => title.classList.add('typing-complete'), titleAnimationDuration + 200);
+      setTimeout(() => header.classList.add('show'), 600);
+      buttons.forEach((btn, i) => setTimeout(() => btn.classList.add('show'), 800 + i * 140));
+    });
 
-      // Apparition des boutons en "stagger"
-      buttons.forEach((btn, i) => {
-        setTimeout(() => { btn.classList.add('show'); }, 800 + i * 140);
+    // --- Audio setup ---
+    let audioCtx = null;
+    let soundEnabled = true;
+
+    const toggleBtn = document.getElementById("soundToggle");
+    toggleBtn.addEventListener("click", () => {
+      soundEnabled = !soundEnabled;
+      toggleBtn.textContent = soundEnabled ? "🔊 Sound ON" : "🔇 Sound OFF";
+    });
+
+    function ensureAudioUnlocked() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+      } catch {}
+    }
+
+    ['pointerdown','touchstart','keydown'].forEach(ev => {
+      window.addEventListener(ev, function unlockOnce() {
+        ensureAudioUnlocked();
+        ['pointerdown','touchstart','keydown'].forEach(e2 => window.removeEventListener(e2, unlockOnce));
       });
     });
 
-    // ---------- Scintillement périodique du titre ----------
+    function playBeep({ freq=880, type='triangle', gainPeak=0.18, duration=0.1 }={}) {
+      if (!soundEnabled) return;
+      try {
+        ensureAudioUnlocked();
+        if (!audioCtx) return;
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(gainPeak, now + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + duration);
+      } catch {}
+    }
+
+    const buttons = document.querySelectorAll('.button');
+    let last = 0;
+    const THROTTLE_MS = 90;
+    buttons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        const now = performance.now();
+        if (now - last > THROTTLE_MS) {
+          playBeep({ freq: 1100, type: 'triangle', gainPeak: 0.16, duration: 0.07 });
+          last = now;
+        }
+      });
+      btn.addEventListener('click', () => playBeep({ freq: 520, type: 'square', gainPeak: 0.22, duration: 0.11 }));
+    });
+
+    // --- Scintillement du titre ---
     (function flickerLoop() {
       const title = document.getElementById('title');
       if (!title) return;
-      const min = 3000, max = 7000; // entre 3 et 7 secondes
+      const min = 3000, max = 7000;
       const delay = Math.floor(Math.random() * (max - min + 1)) + min;
       setTimeout(() => {
         title.classList.add('flicker');
-        // retirer la classe après l'anim pour pouvoir la rejouer
         setTimeout(() => title.classList.remove('flicker'), 800);
         flickerLoop();
       }, delay);
-    })();
-
-    // ---------- Son au survol (WebAudio, pas de fichier requis) ----------
-    let audioCtx = null;
-    function playBeep() {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const duration = 0.09;           // ~90 ms
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-
-        osc.type = 'sine';
-        osc.frequency.value = 880;       // La5 aigu
-        gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-
-        osc.connect(gain).connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {
-        // silence si l'API n'est pas dispo
-      }
-    }
-
-    // Attacher le son au survol des boutons (avec léger "throttle")
-    (function attachHoverSound() {
-      const buttons = document.querySelectorAll('.button');
-      let last = 0;
-      const THROTTLE_MS = 80;
-
-      buttons.forEach(btn => {
-        btn.addEventListener('mouseenter', () => {
-          const now = performance.now();
-          if (now - last > THROTTLE_MS) {
-            playBeep();
-            last = now;
-          }
-        });
-      });
     })();
   </script>
 </body>
