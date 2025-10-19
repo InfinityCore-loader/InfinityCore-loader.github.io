@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>InfinityCore-loader</title>
   <link rel="icon" href="https://cdn.discordapp.com/attachments/1181336013369511936/1422933133321310208/PFP.png" type="image/png">
   <style>
@@ -17,14 +17,10 @@
       --accent-secondary: #b30000;   /* rouge foncé */
       --text-light: #eaeaea;
       --text-dark: #ffffff;
-      --shadow-dark: rgba(0, 0, 0, 0.5);
+      --shadow-dark: rgba(0,0,0,0.5);
     }
 
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: "Tomorrow", sans-serif;
@@ -45,22 +41,21 @@
       padding: 20px;
       max-width: 800px;
       width: 100%;
-      background-color: rgba(28, 28, 28, 0.3);
+      background-color: rgba(28,28,28,0.3);
       border-radius: 10px;
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.15);
+      box-shadow: 0 0 25px rgba(255,0,0,0.15);
       opacity: 0;
       transform: translateY(10px);
       animation: rise 600ms ease-out forwards 150ms;
     }
 
-    /* Titre : d'abord discret, puis glow progressif */
+    /* TITRE lisible + glow propre */
     h1 {
       color: #ffffff;
       -webkit-text-stroke: 0.6px #3a0000;
-      text-shadow: 
+      text-shadow:
         0 0 2px var(--accent-soft),
         0 0 6px var(--accent-primary);
-      font-family: "Tomorrow", sans-serif;
       font-weight: 700;
       display: inline-block;
       font-size: clamp(2rem, 6vw, 3rem);
@@ -73,17 +68,38 @@
       margin: 0 auto 30px auto;
     }
 
-    /* Après la saisie: on coupe le caret et on fait monter le glow */
+    /* Classe appliquée après la saisie + quand on déclenche le scintillement */
     h1.typing-complete {
       border-right-color: transparent;
       animation: none;
-      animation: glowGrow 900ms ease-out forwards; /* augmente la lueur */
+      text-shadow:
+        0 0 4px var(--accent-soft),
+        0 0 10px var(--accent-primary),
+        0 0 18px var(--accent-secondary);
+    }
+
+    /* Scintillement façon néon (appliqué ponctuellement via JS) */
+    h1.flicker {
+      animation: flicker 0.75s linear 1;
     }
 
     @keyframes typing { from { width: 0; } to { width: 100%; } }
     @keyframes blink-caret { 0%,100%{border-color:transparent;} 50%{border-color:var(--accent-primary);} }
 
-    /* Header de section (logo + h2) : fade-in doux */
+    @keyframes flicker {
+      0%   { opacity: 1; text-shadow: 0 0 4px var(--accent-soft), 0 0 10px var(--accent-primary), 0 0 18px var(--accent-secondary); }
+      10%  { opacity: 0.8; }
+      20%  { opacity: 0.4; }
+      30%  { opacity: 0.9; }
+      40%  { opacity: 0.3; }
+      50%  { opacity: 1;   }
+      60%  { opacity: 0.6; }
+      70%  { opacity: 1;   }
+      80%  { opacity: 0.7; }
+      90%  { opacity: 1;   }
+      100% { opacity: 1;   }
+    }
+
     .category-header {
       display: flex;
       align-items: center;
@@ -109,9 +125,7 @@
       font-weight: 700;
       color: #f5f5f5;
       -webkit-text-stroke: 0.4px #2a0000;
-      text-shadow:
-        0 0 3px var(--accent-soft),
-        0 0 8px var(--accent-primary);
+      text-shadow: 0 0 3px var(--accent-soft), 0 0 8px var(--accent-primary);
     }
 
     .category { margin-bottom: 50px; }
@@ -123,7 +137,7 @@
       margin-top: 10px;
     }
 
-    /* Boutons : cachés au départ pour stagger */
+    /* Boutons : apparition progressive (stagger) */
     .button {
       position: relative;
       overflow: hidden;
@@ -138,7 +152,7 @@
       border-radius: 8px;
       transition: all 0.3s ease;
       box-shadow: 0 0 6px rgba(255,0,0,0.45);
-      text-shadow: 0 0 2px rgba(255, 0, 0, 0.6);
+      text-shadow: 0 0 2px rgba(255,0,0,0.6);
       text-align: center;
       cursor: pointer;
 
@@ -146,9 +160,7 @@
       transform: translateY(12px);
       filter: blur(2px);
     }
-    .button.show {
-      animation: rise 520ms ease-out forwards;
-    }
+    .button.show { animation: rise 520ms ease-out forwards; }
 
     .button::after {
       content: '';
@@ -160,7 +172,6 @@
       background: linear-gradient(90deg, transparent, rgba(255,0,0,0.6), transparent);
       transition: left 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
-
     .button:hover::after { left: 150%; }
 
     .button:hover {
@@ -168,32 +179,17 @@
       color: #111;
       border-color: #ff1a1a;
       transform: translateY(-3px) scale(1.05);
-      box-shadow:
-        0 0 10px rgba(255, 26, 26, 0.55),
-        0 0 20px rgba(179, 0, 0, 0.45);
+      box-shadow: 0 0 10px rgba(255,26,26,0.55), 0 0 20px rgba(179,0,0,0.45);
     }
 
-    /* Keyframes utilitaires */
+    /* Animations utilitaires */
     @keyframes rise {
-      0%   { opacity:0; transform:translateY(12px); filter:blur(3px); }
-      100% { opacity:1; transform:translateY(0);    filter:blur(0);   }
-    }
-    @keyframes glowGrow {
-      0% {
-        text-shadow:
-          0 0 2px var(--accent-soft),
-          0 0 6px var(--accent-primary);
-      }
-      100% {
-        text-shadow:
-          0 0 4px var(--accent-soft),
-          0 0 10px var(--accent-primary),
-          0 0 18px var(--accent-secondary);
-      }
+      0%   { opacity: 0; transform: translateY(12px); filter: blur(3px); }
+      100% { opacity: 1; transform: translateY(0);    filter: blur(0);   }
     }
     @keyframes gradientBackground {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
@@ -217,6 +213,7 @@
         <img src="https://cdn.discordapp.com/attachments/1181336013369511936/1422549337770033254/bo6_ml_icon_v1.png" alt="MW3/BO6 Logo" class="category-logo">
         <h2>BO6 / WZ</h2>
       </div>
+
       <div class="button-container">
         <a href="https://gofile.io/d/vmVgCK" class="button">UCLD-External</a>
         <a href="https://gofile.io/d/QJusne" class="button">UCLD Unlock All</a>
@@ -225,29 +222,78 @@
   </div>
 
   <script>
+    // ---------- Effet "apparition" séquencée + glow titre ----------
     document.addEventListener('DOMContentLoaded', () => {
       const title = document.getElementById('title');
       const header = document.getElementById('catHeader');
       const buttons = document.querySelectorAll('.button');
 
-      // Fin de l'effet "typing" puis glow qui monte
+      // Fin de l'effet "typing" puis transition du glow
       const titleAnimationDuration = 3000;
-      setTimeout(() => {
-        title.classList.add('typing-complete');
-      }, titleAnimationDuration + 200);
+      setTimeout(() => { title.classList.add('typing-complete'); }, titleAnimationDuration + 200);
 
       // Apparition du header (logo + h2)
-      setTimeout(() => {
-        header.classList.add('show');
-      }, 600);
+      setTimeout(() => { header.classList.add('show'); }, 600);
 
       // Apparition des boutons en "stagger"
       buttons.forEach((btn, i) => {
-        setTimeout(() => {
-          btn.classList.add('show');
-        }, 800 + i * 140); // décale chaque bouton
+        setTimeout(() => { btn.classList.add('show'); }, 800 + i * 140);
       });
     });
+
+    // ---------- Scintillement périodique du titre ----------
+    (function flickerLoop() {
+      const title = document.getElementById('title');
+      if (!title) return;
+      const min = 3000, max = 7000; // entre 3 et 7 secondes
+      const delay = Math.floor(Math.random() * (max - min + 1)) + min;
+      setTimeout(() => {
+        title.classList.add('flicker');
+        // retirer la classe après l'anim pour pouvoir la rejouer
+        setTimeout(() => title.classList.remove('flicker'), 800);
+        flickerLoop();
+      }, delay);
+    })();
+
+    // ---------- Son au survol (WebAudio, pas de fichier requis) ----------
+    let audioCtx = null;
+    function playBeep() {
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const duration = 0.09;           // ~90 ms
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.value = 880;       // La5 aigu
+        gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // silence si l'API n'est pas dispo
+      }
+    }
+
+    // Attacher le son au survol des boutons (avec léger "throttle")
+    (function attachHoverSound() {
+      const buttons = document.querySelectorAll('.button');
+      let last = 0;
+      const THROTTLE_MS = 80;
+
+      buttons.forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+          const now = performance.now();
+          if (now - last > THROTTLE_MS) {
+            playBeep();
+            last = now;
+          }
+        });
+      });
+    })();
   </script>
 </body>
 </html>
