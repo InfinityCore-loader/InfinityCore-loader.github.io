@@ -50,7 +50,6 @@
       position: relative;
     }
 
-    /* Bouton son */
     .sound-toggle {
       position: absolute;
       top: 15px;
@@ -96,9 +95,7 @@
         0 0 18px var(--accent-secondary);
     }
 
-    h1.flicker {
-      animation: flicker 0.75s linear 1;
-    }
+    h1.flicker { animation: flicker 0.75s linear 1; }
 
     @keyframes typing { from { width: 0; } to { width: 100%; } }
     @keyframes blink-caret { 0%,100%{border-color:transparent;} 50%{border-color:var(--accent-primary);} }
@@ -225,77 +222,43 @@
     </div>
   </div>
 
+  <!-- Son de clic -->
+  <audio id="clickSound" preload="auto">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0c4efda627.mp3?filename=click-124467.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
-    // --- Apparition + glow titre ---
+    // Apparition + glow titre
     document.addEventListener('DOMContentLoaded', () => {
       const title = document.getElementById('title');
       const header = document.getElementById('catHeader');
       const buttons = document.querySelectorAll('.button');
       const titleAnimationDuration = 3000;
-
       setTimeout(() => title.classList.add('typing-complete'), titleAnimationDuration + 200);
       setTimeout(() => header.classList.add('show'), 600);
       buttons.forEach((btn, i) => setTimeout(() => btn.classList.add('show'), 800 + i * 140));
     });
 
-    // --- Audio setup ---
-    let audioCtx = null;
+    // Gestion du son
+    const clickSound = document.getElementById("clickSound");
     let soundEnabled = true;
-
     const toggleBtn = document.getElementById("soundToggle");
     toggleBtn.addEventListener("click", () => {
       soundEnabled = !soundEnabled;
       toggleBtn.textContent = soundEnabled ? "🔊 Sound ON" : "🔇 Sound OFF";
     });
 
-    function ensureAudioUnlocked() {
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-      } catch {}
-    }
-
-    ['pointerdown','touchstart','keydown'].forEach(ev => {
-      window.addEventListener(ev, function unlockOnce() {
-        ensureAudioUnlocked();
-        ['pointerdown','touchstart','keydown'].forEach(e2 => window.removeEventListener(e2, unlockOnce));
-      });
-    });
-
-    function playBeep({ freq=880, type='triangle', gainPeak=0.18, duration=0.1 }={}) {
-      if (!soundEnabled) return;
-      try {
-        ensureAudioUnlocked();
-        if (!audioCtx) return;
-        const now = audioCtx.currentTime;
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, now);
-        gain.gain.setValueAtTime(0.0001, now);
-        gain.gain.exponentialRampToValueAtTime(gainPeak, now + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-        osc.connect(gain).connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + duration);
-      } catch {}
-    }
-
-    const buttons = document.querySelectorAll('.button');
-    let last = 0;
-    const THROTTLE_MS = 90;
-    buttons.forEach(btn => {
-      btn.addEventListener('mouseenter', () => {
-        const now = performance.now();
-        if (now - last > THROTTLE_MS) {
-          playBeep({ freq: 1100, type: 'triangle', gainPeak: 0.16, duration: 0.07 });
-          last = now;
+    // Lecture du son au clic
+    document.querySelectorAll('.button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (soundEnabled) {
+          clickSound.currentTime = 0;
+          clickSound.play().catch(()=>{});
         }
       });
-      btn.addEventListener('click', () => playBeep({ freq: 520, type: 'square', gainPeak: 0.22, duration: 0.11 }));
     });
 
-    // --- Scintillement du titre ---
+    // Scintillement périodique
     (function flickerLoop() {
       const title = document.getElementById('title');
       if (!title) return;
