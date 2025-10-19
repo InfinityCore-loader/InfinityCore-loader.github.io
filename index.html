@@ -1,211 +1,231 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InfinityCore-loader</title>
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/1181336013369511936/1422933133321310208/PFP.png" type="image/png">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tomorrow:wght@400;600;700&display=swap');
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InfinityCore-loader</title>
+  <link rel="icon" href="https://cdn.discordapp.com/attachments/1181336013369511936/1422933133321310208/PFP.png" type="image/png">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tomorrow:wght@400;600;700&display=swap');
 
-        :root {
-            --bg-dark-1: #141414;
-            --bg-dark-2: #1C1C1C;
-            --bg-dark-3: #1F1F1F;
-            --accent-primary: #ff0000;
-            --accent-glow: #ff2020;
-            --accent-secondary: #b30000;
-            --text-light: #E0E0E0;
-            --text-dark: #FFFFFF;
-            --shadow-dark: rgba(0, 0, 0, 0.5);
-        }
+    :root {
+      --bg-dark-1: #0f0f0f;
+      --bg-dark-2: #151515;
+      --bg-dark-3: #181818;
+      --accent-primary: #ff0000;
+      --accent-secondary: #b30000;
+      --text-light: #eaeaea;
+      --text-dark: #ffffff;
+      --shadow-dark: rgba(0, 0, 0, 0.5);
+    }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            font-family: "Tomorrow", sans-serif;
-            font-weight: 600;
-            background: linear-gradient(85deg, var(--bg-dark-3), var(--bg-dark-1), var(--bg-dark-2));
-            background-size: 250% 250%;
-            animation: gradientBackground 20s linear infinite;
-            color: var(--text-light);
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 50px 20px;
-        }
+    body {
+      font-family: "Tomorrow", sans-serif;
+      font-weight: 600;
+      background: linear-gradient(85deg, var(--bg-dark-3), var(--bg-dark-1), var(--bg-dark-2));
+      background-size: 250% 250%;
+      animation: gradientBackground 20s linear infinite;
+      color: var(--text-light);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 50px 20px;
+    }
 
-        .container {
-            text-align: center;
-            padding: 20px;
-            max-width: 800px;
-            width: 100%;
-            background-color: rgba(28, 28, 28, 0.3);
-            border-radius: 10px;
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.15);
-        }
+    .container {
+      text-align: center;
+      padding: 20px;
+      max-width: 800px;
+      width: 100%;
+      background-color: rgba(28, 28, 28, 0.3);
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.15);
+    }
 
-        h1 {
-            font-family: "Tomorrow", sans-serif;
-            font-weight: 700;
-            display: inline-block;
-            color: var(--accent-primary);
-            font-size: clamp(2rem, 6vw, 3rem);
-            border-right: 0.15em solid var(--accent-primary);
-            animation: typing 3s steps(40, end) forwards,
-                       blink-caret 0.75s step-end infinite,
-                       neonPulse 2.5s ease-in-out infinite;
-            text-shadow: 0 0 15px var(--accent-glow), 0 0 25px var(--accent-primary);
-            margin: 0 auto 30px auto;
-        }
+    /* Titre lisible + glow propre */
+    h1 {
+      color: #ffffff;
+      -webkit-text-stroke: 0.6px #3a0000;
+      text-shadow: 
+        0 0 4px #ff2a2a,
+        0 0 10px #ff0000,
+        0 0 18px #b30000;
+      font-family: "Tomorrow", sans-serif;
+      font-weight: 700;
+      display: inline-block;
+      font-size: clamp(2rem, 6vw, 3rem);
+      border-right: 0.15em solid var(--accent-primary);
+      animation: typing 3s steps(40, end) forwards,
+                 blink-caret 0.75s step-end infinite;
+      margin: 0 auto 30px auto;
+    }
 
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
-        }
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
 
-        @keyframes blink-caret {
-            0%, 100% { border-color: transparent; }
-            50% { border-color: var(--accent-primary); }
-        }
+    @keyframes blink-caret {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: var(--accent-primary); }
+    }
 
-        @keyframes neonPulse {
-            0%, 100% {
-                text-shadow: 0 0 10px var(--accent-glow),
-                             0 0 20px var(--accent-primary),
-                             0 0 40px var(--accent-primary);
-            }
-            50% {
-                text-shadow: 0 0 20px var(--accent-glow),
-                             0 0 40px var(--accent-glow),
-                             0 0 60px var(--accent-primary);
-            }
-        }
+    h1.typing-complete {
+      border-right-color: transparent;
+      text-shadow: 
+        0 0 4px #ff2a2a,
+        0 0 10px #ff0000,
+        0 0 18px #b30000;
+    }
 
-        .category-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 40px;
-            margin-bottom: 25px;
-            animation: fadeInDown 1s ease-out 0.5s backwards;
-        }
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 40px;
+      margin-bottom: 25px;
+      animation: fadeInDown 1s ease-out 0.5s backwards;
+    }
 
-        .category-logo {
-            width: 40px;
-            height: 40px;
-            margin-right: 15px;
-            object-fit: contain;
-            filter: drop-shadow(0 0 10px var(--accent-primary));
-            animation: neonPulse 3s ease-in-out infinite;
-        }
+    .category-logo {
+      width: 40px;
+      height: 40px;
+      margin-right: 15px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 6px rgba(255,0,0,0.6))
+              drop-shadow(0 0 14px rgba(179,0,0,0.5));
+    }
 
-        h2 {
-            font-size: clamp(1.5rem, 5vw, 2rem);
-            font-weight: 700;
-            color: var(--accent-secondary);
-            text-shadow: 0 0 8px var(--accent-glow);
-            animation: neonPulse 3s ease-in-out infinite;
-        }
+    h2 {
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-weight: 700;
+      color: #f5f5f5;
+      -webkit-text-stroke: 0.4px #2a0000;
+      text-shadow:
+        0 0 3px #ff2a2a,
+        0 0 8px #ff0000;
+    }
 
-        .button-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-            animation: fadeInUp 1.2s ease-out 0.9s backwards;
-        }
+    .category {
+      margin-bottom: 50px;
+    }
 
-        .button {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            padding: 14px 25px;
-            font-size: 1rem;
-            font-weight: 600;
-            border: 2px solid var(--accent-primary);
-            color: var(--text-light);
-            background-color: transparent;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px var(--accent-primary);
-            text-align: center;
-            cursor: pointer;
-            animation: neonPulse 3s ease-in-out infinite;
-        }
+    .button-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      animation: fadeInUp 1.2s ease-out 0.9s backwards;
+    }
 
-        .button::after {
-            content: '';
-            position: absolute;
-            left: -150%;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
-            transition: left 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
+    .button {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      padding: 14px 25px;
+      font-size: 1rem;
+      font-weight: 600;
+      background-color: #171717;
+      border: 2px solid #ff2a2a;
+      color: #eaeaea;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow:
+        0 0 6px rgba(255, 0, 0, 0.45);
+      text-shadow: 0 0 2px rgba(255, 0, 0, 0.6);
+      text-align: center;
+      cursor: pointer;
+    }
 
-        .button:hover::after {
-            left: 150%;
-        }
+    .button::after {
+      content: '';
+      position: absolute;
+      left: -150%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,0,0,0.6), transparent);
+      transition: left 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
 
-        .button:hover {
-            background-color: var(--accent-primary);
-            color: #000;
-            border-color: var(--accent-primary);
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 0 25px var(--accent-glow), 0 0 50px var(--accent-primary);
-        }
+    .button:hover::after {
+      left: 150%;
+    }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .button:hover {
+      background-color: #ff1a1a;
+      color: #111;
+      border-color: #ff1a1a;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow:
+        0 0 10px rgba(255, 26, 26, 0.55),
+        0 0 20px rgba(179, 0, 0, 0.45);
+    }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        @keyframes gradientBackground {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-    </style>
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes gradientBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 30px 15px; }
+      .container { padding: 15px; }
+      .button-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      h1 { margin-bottom: 20px; }
+      .category-header { margin-top: 30px; margin-bottom: 20px; }
+      .category-logo { width: 30px; height: 30px; margin-right: 10px; }
+      .button { padding: 12px 20px; font-size: 0.95rem; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1 id="title">InfinityCore-loader</h1>
+  <div class="container">
+    <h1 id="title">InfinityCore-loader</h1>
 
-        <div class="category">
-            <div class="category-header">
-                <img src="https://cdn.discordapp.com/attachments/1181336013369511936/1422549337770033254/bo6_ml_icon_v1.png" alt="MW3/BO6 Logo" class="category-logo">
-                <h2>BO6 / WZ</h2>
-            </div>
-            <div class="button-container">
-                <a href="https://gofile.io/d/vmVgCK" class="button">UCLD-External</a>
-                <a href="https://gofile.io/d/QJusne" class="button">UCLD Unlock All</a>
-            </div>
-        </div>
+    <div class="category">
+      <div class="category-header">
+        <img src="https://cdn.discordapp.com/attachments/1181336013369511936/1422549337770033254/bo6_ml_icon_v1.png" alt="MW3/BO6 Logo" class="category-logo">
+        <h2>BO6 / WZ</h2>
+      </div>
+      <div class="button-container">
+        <a href="https://gofile.io/d/vmVgCK" class="button">UCLD-External</a>
+        <a href="https://gofile.io/d/QJusne" class="button">UCLD Unlock All</a>
+      </div>
     </div>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const title = document.getElementById('title');
-            const titleAnimationDuration = 3000;
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const title = document.getElementById('title');
+      const titleAnimationDuration = 3000;
 
-            setTimeout(() => {
-                if (title) {
-                    title.classList.add('typing-complete');
-                }
-            }, titleAnimationDuration + 200);
-        });
-    </script>
+      setTimeout(() => {
+        if (title) {
+          title.classList.add('typing-complete');
+        }
+      }, titleAnimationDuration + 200);
+    });
+  </script>
 </body>
 </html>
